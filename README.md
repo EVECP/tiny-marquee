@@ -29,7 +29,7 @@
     }
 
 ## 重复调用
-允许同一个 jQuery 对象多次调用 marquee() 方法，多次调用会刷新滚动条，可以用来实现重新布局。
+允许同一个 jQuery 对象多次调用 marquee() 方法，多次调用会刷新滚动条，可以用来实现重新布局。<br />
     <script>
       $(window).resize(function() {
         mq.marquee({
