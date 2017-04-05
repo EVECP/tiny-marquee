@@ -1,6 +1,6 @@
 # tiny-marquee
 基于 jQuery 的轻量级无缝滚动插件，滚动功能由 jQuery 的 animate 方法实现。
-
+<br /><br />
 ## 如何使用
 
 ### 引入 jQuery 和 tiny-marquee
@@ -22,15 +22,14 @@
         interval: 3000
       });
     </script>
-    
+<br /><br />
 ## 参数列表
     {
       interval: 3000  //滚动时间间隔（毫秒）
     }
-
+<br /><br />
 ## 重复调用
 允许同一个 jQuery 对象多次调用 marquee() 方法，多次调用会刷新滚动条，可以用来实现重新布局。<br />
-
     <script>
       mq.marquee({
         interval: 3000
