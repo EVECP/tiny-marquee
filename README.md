@@ -18,7 +18,7 @@
     
 ### 调用方法同时配置参数
     <script>
-      $(".marquee").marquee({
+      var mq = $(".marquee").marquee({
         interval: 3000
       });
     </script>
@@ -27,3 +27,13 @@
     {
       interval: 3000  //滚动时间间隔（毫秒）
     }
+
+## 重复调用
+允许同一个 jQuery 对象多次调用 marquee() 方法，多次调用会刷新滚动条，可以用来实现重新布局。
+    <script>
+      $(window).resize(function() {
+        mq.marquee({
+          interval: 3000  
+        });    
+      });
+    </script>

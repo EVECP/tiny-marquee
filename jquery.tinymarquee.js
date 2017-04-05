@@ -1,16 +1,17 @@
 (function(jQuery) {
-  var Marquee = (function() {
+var Marquee = (function() {
     function Marquee(element, options) {
       this.elements = {
         wrap: element,
-        ul: element.children("ul").eq(0),
-        li: element.children("ul").eq(0).children("li")
+        ul: element.children("ul:last"),
+        li: element.children("ul:last").children("li")
       };
       this.ulW;
       this.settings = jQuery.extend({}, jQuery.fn.marquee.defaults, options);
     }
 
     Marquee.prototype.init = function() {
+      this.pause();
       this.setStyle();
       this.fillWrap();
       this.move();
@@ -29,40 +30,39 @@
         ulCopyCount = Math.ceil(wrapInnerW / ulW);
 
       this.ulW = ulW;
-      
-      this.elements.wrap.children("ul").not(":first").remove();
 
+      this.elements.wrap.children("ul").not(":last").remove();
       for (var i = 0; i < ulCopyCount; i++) {
-        this.elements.ul.after(this.elements.ul.clone(true));
+        this.elements.ul.after(this.elements.ul.clone());
       }
     }
 
     Marquee.prototype.move = function() {
       var _this = this,
         interval = _this.settings.interval,
-        firstUl = _this.elements.wrap.children("ul").eq(0),
-        firstUlW = firstUl.outerWidth();
-        lastUl = _this.elements.wrap.children("ul").eq(-1),
-        firstUlRealMarginL = parseInt(firstUl.css("marginLeft")),
-        firstUlRealMarginR = parseInt(firstUl.css("marginRight")),
-        firstUlAndMarginRealW = firstUlW + firstUlRealMarginL + firstUlRealMarginR;
+        firstUl = _this.elements.wrap.children("ul:first"),
+        firstUlW = firstUl.outerWidth(),
+        lastUl = _this.elements.wrap.children("ul:last"),
+        firstUlMarginL = parseInt(firstUl.css("marginLeft")),
+        firstUlMarginR = parseInt(firstUl.css("marginRight")),
+        firstUlAndMarginRealW = firstUlW + firstUlMarginL + firstUlMarginR;
 
       if (firstUlAndMarginRealW < _this.ulW) {
         interval = firstUlAndMarginRealW / _this.ulW * interval;
       }
 
-      firstUl.animate({marginLeft: -(firstUlW + firstUlRealMarginR) + "px"}, interval, "linear", function() {
+      firstUl.animate({marginLeft: -(firstUlW + firstUlMarginR) + "px"}, interval, "linear", function() {
         firstUl.remove();
-        lastUl.after(lastUl.clone(true));
+        lastUl.after(lastUl.clone());
         _this.move();
       });
     }
 
     Marquee.prototype.pause = function() {
-      var firstUl = this.elements.wrap.children("ul").eq(0).stop();
+      var firstUl = this.elements.wrap.children("ul:first").stop();
     };
 
-    Marquee.prototype.bind  =function() {
+    Marquee.prototype.bind = function() {
       var _this = this;
       _this.elements.wrap.mouseover(function() {
         _this.pause();
