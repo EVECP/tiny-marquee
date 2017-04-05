@@ -32,8 +32,10 @@
 允许同一个 jQuery 对象多次调用 marquee() 方法，多次调用会刷新滚动条，可以用来实现重新布局。
 ```
 <script>
-  mq.marquee({
-    interval: 3000
+  $(window).resize(function() {
+    mq.marquee({
+      interval: 3000  
+    });    
   });
 </script>
 ```
