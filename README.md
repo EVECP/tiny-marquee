@@ -28,14 +28,5 @@
       interval: 3000  //滚动时间间隔（毫秒）
     }
 
-## 重复调用
-允许同一个 jQuery 对象多次调用 marquee() 方法，多次调用会刷新滚动条，可以用来实现重新布局。
-```
-<script>
-  $(window).resize(function() {
-    mq.marquee({
-      interval: 3000  
-    });    
-  });
-</script>
-```
+## 自适应布局
+当触发 $(window).resize() 事件时，tiny-marquee 会自动适应父级容器宽度，实现重新布局。

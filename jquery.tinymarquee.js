@@ -11,7 +11,6 @@ var Marquee = (function() {
     }
 
     Marquee.prototype.init = function() {
-      this.pause();
       this.setStyle();
       this.fillWrap();
       this.move();
@@ -62,6 +61,25 @@ var Marquee = (function() {
       var firstUl = this.elements.wrap.children("ul:first").stop();
     };
 
+    Marquee.prototype.refillWrap = function() {
+      var wrapInnerW = this.elements.wrap.innerWidth(),
+        newUlCopyCount = Math.ceil(wrapInnerW / this.ulW) + 1,
+        oldUlCopyCount = this.elements.wrap.children("ul").length,
+        lastUl = this.elements.wrap.children("ul:last");
+
+      this.pause();
+      if (newUlCopyCount >= oldUlCopyCount) {
+        for (var i = 0; i < newUlCopyCount - oldUlCopyCount; i++) {
+          lastUl.after(lastUl.clone());
+        }
+      } else if (newUlCopyCount < oldUlCopyCount) {
+        for (var i = 0; i < oldUlCopyCount - newUlCopyCount; i++) {
+          this.elements.wrap.children("ul:last").remove();
+        }
+      }
+      this.move();
+    }
+
     Marquee.prototype.bind = function() {
       var _this = this;
       _this.elements.wrap.mouseover(function() {
@@ -70,6 +88,10 @@ var Marquee = (function() {
 
       _this.elements.wrap.mouseout(function() {
         _this.move();
+      });
+
+      jQuery(window).resize(function() {
+        _this.refillWrap();
       });
     }
 
