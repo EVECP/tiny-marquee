@@ -90,7 +90,7 @@ var Marquee = (function() {
         _this.move();
       });
 
-      $(window).resize(function() {
+      jQuery(window).resize(function() {
         _this.refillWrap();
       });
     }
