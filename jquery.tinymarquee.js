@@ -3,8 +3,7 @@ var Marquee = (function() {
     function Marquee(element, options) {
       this.elements = {
         wrap: element,
-        ul: element.children("ul:last"),
-        li: element.children("ul:last").children("li")
+        ul: element.children("ul:last")
       };
       this.ulW;
       this.settings = jQuery.extend({}, jQuery.fn.marquee.defaults, options);
@@ -68,7 +67,7 @@ var Marquee = (function() {
         lastUl = this.elements.wrap.children("ul:last");
 
       this.pause();
-      if (newUlCopyCount >= oldUlCopyCount) {
+      if (newUlCopyCount > oldUlCopyCount) {
         for (var i = 0; i < newUlCopyCount - oldUlCopyCount; i++) {
           lastUl.after(lastUl.clone());
         }
@@ -82,6 +81,7 @@ var Marquee = (function() {
 
     Marquee.prototype.bind = function() {
       var _this = this;
+
       _this.elements.wrap.mouseover(function() {
         _this.pause();
       });
@@ -90,7 +90,7 @@ var Marquee = (function() {
         _this.move();
       });
 
-      jQuery(window).resize(function() {
+      $(window).resize(function() {
         _this.refillWrap();
       });
     }
