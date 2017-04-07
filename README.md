@@ -18,7 +18,7 @@
     
 ### 调用方法同时配置参数
     <script>
-      var mq = $(".marquee").marquee({
+      $(".marquee").marquee({
         interval: 3000
       });
     </script>
