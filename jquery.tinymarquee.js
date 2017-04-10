@@ -1,5 +1,5 @@
 (function(jQuery) {
-var Marquee = (function() {
+  var Marquee = (function() {
     function Marquee(element, options) {
       this.elements = {
         wrap: element,
